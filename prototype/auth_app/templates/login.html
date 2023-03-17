@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title> <!-- Change the title to "Signup" for the signup.html file -->
+</head>
+<body>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="hidden" id="facialDataInput" name="facial_data">
+        <br>
+        <video id="video" width="720" height="560" autoplay muted></video>
+        <button id="captureButton">Capture Face</button>
+        <input type="hidden" id="facialDataInput" name="facial_data">
+
+        <!-- Include a counter to keep track of the number of captured images -->
+        <span id="captureCount">0</span>/5
+        <br>
+        <button type="submit">Login</button>
+      </form>
+      
+    
+</body>
+</html>

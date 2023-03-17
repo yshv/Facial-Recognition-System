@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    
+    <form method="post" action="">
+        {% csrf_token %}
+        <!-- Your form fields here -->
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required><br>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required><br>
+        <input type="hidden" id="facialDataInput" name="facial_data">
+        <button type="submit">Signup</button>
+    </form>
+    
+    <div style="position: relative;">
+        <video id="video" width="720" height="560" autoplay muted></video>
+        <canvas id="overlay" width="720" height="560" style="position: absolute;"></canvas>
+    </div>
+    <canvas id="canvas" width="720" height="560" style="display:none;"></canvas>
+    <button id="captureButton">Capture Face</button>
+
+    <script src="../static/models/face-api.min.js"></script>
+    <script type="text/javascript">
+        let video = document.getElementById("video");
+        let canvas = document.getElementById("canvas");
+        let captureButton = document.getElementById("captureButton");
+        let overlay = document.getElementById("overlay");
+        let overlayCtx = overlay.getContext("2d");
+
+        async function initialize() {
+            if (typeof faceapi === 'undefined') {
+                setTimeout(initialize, 50);
+                return;
+            }
+
+            await faceapi.nets.ssdMobilenetv1.loadFromUri('../static/models');
+            await faceapi.nets.faceLandmark68Net.loadFromUri('../static/models');
+            await faceapi.nets.faceRecognitionNet.loadFromUri('../static/models');
+
+            navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+                .then(function(stream) {
+                    video.srcObject = stream;
+                    video.play();
+                })
+                .catch(function(err) {
+                    console.log("An error occurred: " + err);
+                });
+
+            video.addEventListener("play", () => {
+                // Call the updateOverlay function every 100ms
+                setInterval(updateOverlay, 100);
+            });
+
+            captureButton.addEventListener("click", captureImage);
+        }
+
+        async function updateOverlay() {
+            overlayCtx.clearRect(0, 0, overlay.width, overlay.height);
+            const input = faceapi.createCanvasFromMedia(video);
+            const detection = await faceapi.detectSingleFace(input).withFaceLandmarks();
+
+            if (detection) {
+                const resizedDetections = faceapi.resizeResults(detection, { width: video.width, height: video.height });
+                faceapi.draw.drawDetections(overlay, resizedDetections);
+                faceapi.draw.drawFaceLandmarks(overlay, resizedDetections);
+            }
+        }
+
+        async function captureImage() {
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            const input = faceapi.createCanvasFromMedia(video);
+            const detection = await faceapi.detectSingleFace(input).withFaceLandmarks().withFaceDescriptor();
+
+            if (detection) {
+                const facialDataInput = document.getElementById("facialDataInput");
+                facialDataInput.value = JSON.stringify(detection.descriptor);
+                console.log("Captured");
+            } else {
+                console.log("No face detected.");
+            }
+        }
+
+        initialize();
+    </script>
+</body>
+</html>
+
