@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -25,3 +25,55 @@
   
 </body>
 </html>
+ {% endcomment %}
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Facial Recognition Authentication</title>
+     <!-- Link Bootstrap CSS -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <style>
+         /* Custom CSS */
+         body {
+             padding: 40px;
+         }
+ 
+         h1 {
+             margin-bottom: 30px;
+         }
+ 
+         #facialAuthForm {
+             margin-top: 30px;
+         }
+     </style>
+ </head>
+ 
+ <body>
+     <div class="container">
+         <h1 class="text-center">Facial Recognition Authentication</h1>
+         <div class="text-center">
+             {% if not user.is_authenticated %}
+             <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+             <a href="{% url 'signup' %}" class="btn btn-secondary">Signup</a>
+             {% else %}
+             <p>Hi, {{ user.username }}</p>
+             <a href="{% url 'logout' %}" class="btn btn-danger">Logout</a>
+             {% endif %}
+         </div>
+ 
+         <form id="facialAuthForm" method="POST" style="display: none;">
+             {% csrf_token %}
+             <input type="hidden" id="facialDataInput" name="facial_data">
+         </form>
+     </div>
+ 
+     <!-- Link Bootstrap and jQuery JS -->
+     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+ </body>
+ 
+ </html>

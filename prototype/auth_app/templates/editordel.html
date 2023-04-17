@@ -1,0 +1,142 @@
+{% comment %} <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{data.action}}</title>
+</head>
+<body>
+    {% if error %}
+        <p>{{ error }}</p>
+    {% endif %}
+    <h1>{{data.action}}</h1>
+    <form method="POST" action="">
+        {% csrf_token %}
+        <!-- Your form fields here -->
+        <label for="info1">First confirmation:</label>
+        <input type="{% if data.type == 'username' %}text{% elif data.type == 'password' %}password{% elif data.type == 'email' %}email{% endif %}" id="info1" name="info1" required><br>
+        <label for="info2">Second confirmation:</label>
+        <input type="{% if data.type == 'username' %}text{% elif data.type == 'password' %}password{% elif data.type == 'email' %}email{% endif %}" id="info2" name="info2" required><br>
+        <button type="submit" name="update">Update</button>
+    </form>
+</body>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{data.action}}</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS for the page */
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding-top: 50px;
+        }
+
+        #canvas {
+            display: none;
+        }
+
+        #overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        /* Center the error message */
+        .center {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+           font-size: 36px; /* Increase font size */
+           position: fixed; /* Set position to fixed */
+           top: 0; /* Set top to 0 */
+           left: 0; /* Set left to 0 */
+           right: 0; /* Set right to 0 */
+           bottom: 0; /* Set bottom to 0 */
+           background-color: rgba(0, 0, 0, 0.8); /* Add background color with transparency */
+           color: #fff; /* Set text color to white */
+           z-index: 9999; /* Set z-index to a high value to ensure it's on top */
+           flex-direction: column; /* Set flex-direction to "column" to stack items vertically */
+       }
+       
+       .error {
+           margin-top: 10px; /* Add some margin between the error message and countdown messages */
+           text-align: center; /* Center the countdown messages text */
+           font-weight: bold; /* Style the countdown text as bold */
+       }
+       
+       .countdown {
+           font-size: 24px;
+           text-align: center; /* Center the error message text */
+       }
+    </style>
+</head>
+<body>
+        {% if error %}
+            <div class="container mt-5">
+                <div class="center">
+                    <p class="error">{{ error }}</p>
+                    <p class="countdown">This page will redirect to last page <span id="countdown">5</span>s</p>
+                </div>
+                <script>
+                    let countdown = 5; // Set initial countdown value
+                    let countdownElement = document.getElementById('countdown'); // Get countdown element
+
+                    // Function to update countdown element and close error message after 5 seconds
+                    function updateCountdown() {
+                        countdown--;
+                        countdownElement.textContent = countdown;
+
+                        if (countdown === 0) {
+                            document.querySelector('.center').style.display = 'none';
+                        } else {
+                            setTimeout(updateCountdown, 1000); // Update countdown every 1 second
+                        }
+                    }
+                    // Call updateCountdown function
+                    updateCountdown();
+                </script>
+            </div>
+        {% endif %}
+    <div class="container mt-5">
+        <h1 class="mb-4">{{data.type}}&nbsp;{{data.action}}</h1>
+        <form method="POST" action="">
+            {% csrf_token %}
+            <!-- Your form fields here -->
+            {% if data.action == "edit" %}
+                <div class="form-group">
+                    <label for="info1">New&nbsp;{{data.type}}:</label>
+                    <input type="{% if data.type == 'username' %}text{% elif data.type == 'password' %}password{% elif data.type == 'email' %}email{% endif %}" id="info1" name="info1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="info2">New&nbsp;{{data.type}}&nbsp;confirmation:</label>
+                    <input type="{% if data.type == 'username' %}text{% elif data.type == 'password' %}password{% elif data.type == 'email' %}email{% endif %}" id="info2" name="info2" class="form-control" required>
+                </div>
+                <button type="submit" name="update" class="btn btn-primary">Update</button>
+            {% endif %}
+            {% if data.action == "delete" %}
+                <div class="form-group">
+                    <label for="info1">Email:</label>
+                    <input type="email" id="info1" name="info1" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="info2">Password:</label>
+                    <input type="text" id="info2" name="info2" class="form-control" required>
+                </div>
+                <button type="submit" name="update" class="btn btn-primary">Delete</button>
+            {% endif %}
+
+
+        </form>
+    </div>
+    <!-- Include Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

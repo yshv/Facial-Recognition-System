@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -97,4 +97,126 @@
     </script>
 </body>
 </html>
+ {% endcomment %}
+ {% load static %}
+ <!DOCTYPE html>
+ <html lang="en">
+ 
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Signup</title>
+     <!-- Bootstrap 4 CSS link -->
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <style>
+         /* Custom CSS for the page */
+         .container {
+             max-width: 500px;
+             margin: 0 auto;
+             padding-top: 50px;
+         }
+ 
+         #canvas {
+             display: none;
+         }
+ 
+         #overlay {
+             position: absolute;
+             top: 0;
+             left: 0;
+             z-index: 1000;
+         }
 
+         /* Center the error message */
+         .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-size: 36px; /* Increase font size */
+            position: fixed; /* Set position to fixed */
+            top: 0; /* Set top to 0 */
+            left: 0; /* Set left to 0 */
+            right: 0; /* Set right to 0 */
+            bottom: 0; /* Set bottom to 0 */
+            background-color: rgba(0, 0, 0, 0.8); /* Add background color with transparency */
+            color: #fff; /* Set text color to white */
+            z-index: 9999; /* Set z-index to a high value to ensure it's on top */
+            flex-direction: column; /* Set flex-direction to "column" to stack items vertically */
+        }
+        
+        .error {
+            margin-top: 10px; /* Add some margin between the error message and countdown messages */
+            text-align: center; /* Center the countdown messages text */
+            font-weight: bold; /* Style the countdown text as bold */
+        }
+        
+        .countdown {
+            font-size: 24px;
+            text-align: center; /* Center the error message text */
+        }
+     </style>
+ </head>
+ 
+ <body>
+     {% if error %}
+        <div class="center">
+            <p class="error">{{ error }}</p>
+            <p class="countdown">This page will redirect to signup in <span id="countdown">5</span>s</p>
+        </div>
+        <script>
+            let countdown = 5; // Set initial countdown value
+            let countdownElement = document.getElementById('countdown'); // Get countdown element
+
+            // Function to update countdown element and close error message after 5 seconds
+            function updateCountdown() {
+                countdown--;
+                countdownElement.textContent = countdown;
+
+                if (countdown === 0) {
+                    document.querySelector('.center').style.display = 'none';
+                } else {
+                    setTimeout(updateCountdown, 1000); // Update countdown every 1 second
+                }
+            }
+
+            // Call updateCountdown function
+            updateCountdown();
+        </script>
+     {% endif %}
+ 
+     <div class="container">
+         <h1 class="text-center">Signup</h1>
+         <form method="post" action="">
+             {% csrf_token %}
+             <!-- Your form fields here -->
+             <div class="form-group">
+                 <label for="username">Username:</label>
+                 <input type="text" id="username" name="username" required class="form-control">
+             </div>
+             <div class="form-group">
+                 <label for="email">Email:</label>
+                 <input type="email" id="email" name="email" required class="form-control">
+             </div>
+             <div class="form-group">
+                 <label for="password">Password:</label>
+                 <input type="password" id="password" name="password" required class="form-control">
+             </div>
+             <input type="hidden" id="facialDataInput" name="facial_data" required>
+             <button type="submit" class="btn btn-primary">Signup</button>
+         </form>
+ 
+         <div style="position: relative; margin-top: 20px;">
+             <video id="video" width="100%" height="auto" autoplay muted></video>
+             <canvas id="overlay" width="100%" height="auto"></canvas>
+         </div>
+         <canvas id="canvas" width="100%" height="auto"></canvas>
+         <button id="startButton" class="btn btn-primary mt-2">Start Camera</button>
+         <button id="captureButton" class="btn btn-primary mt-2">Capture Face</button>
+         <span id="captureCount">0</span>/5
+     </div>
+     <script src="{% static 'js/video.js' %}"></script>
+
+ </body>
+ </html>
+ 
