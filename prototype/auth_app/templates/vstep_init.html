@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Step Initialization</title>
+    <!-- Add any CSS or JS files needed for styling or functionality -->
+</head>
+
+<body>
+    {%if not confirm%}
+        <h1>Verification Step Initialization</h1>
+        <p>Please verify your information:</p>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="vstep_info">Verification Step Info (Secondary Email):</label>
+            <input type="email" id="vstep_info" name="vstep_info" required>
+            <input type="submit" name="vcode" value="Enable Verification Step">
+        </form>
+    {%else%}
+        <h2>Verification Code</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <label for="verification_code">Verification Code:</label>
+            <input type="text" id="verification_code" name="verification_code" required>
+            <button type="submit" name="vconfirm" class="btn btn-primary">Confirm</button>
+        </form>
+    {%endif%}
+    <a href="{% url 'settings' %}">Back to Settings</a>
+</body>
+
+</html>

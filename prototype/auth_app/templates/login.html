@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+{% comment %} <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -27,4 +27,156 @@
       
     
 </body>
+</html> {% endcomment %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Include Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Login</title> <!-- Change the title to "Signup" for the signup.html file -->
+    <style>
+        /* Custom CSS for the form */
+        form {
+            max-width: 360px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            margin-top: 50px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+        }
+
+        #video {
+            width: 100%;
+            height: auto;
+            margin-top: 15px;
+            margin-bottom: 15px;
+        }
+
+        #captureButton {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            cursor: pointer;
+        }
+
+        #captureCount {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        button[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Center the error message */
+        .center {
+           display: flex;
+           justify-content: center;
+           align-items: center;
+           height: 100vh;
+           font-size: 36px; /* Increase font size */
+           position: fixed; /* Set position to fixed */
+           top: 0; /* Set top to 0 */
+           left: 0; /* Set left to 0 */
+           right: 0; /* Set right to 0 */
+           bottom: 0; /* Set bottom to 0 */
+           background-color: rgba(0, 0, 0, 0.8); /* Add background color with transparency */
+           color: #fff; /* Set text color to white */
+           z-index: 9999; /* Set z-index to a high value to ensure it's on top */
+           flex-direction: column; /* Set flex-direction to "column" to stack items vertically */
+       }
+       
+       .error {
+           margin-top: 10px; /* Add some margin between the error message and countdown messages */
+           text-align: center; /* Center the countdown messages text */
+           font-weight: bold; /* Style the countdown text as bold */
+       }
+       
+       .countdown {
+           font-size: 24px;
+           text-align: center; /* Center the error message text */
+       }
+    </style>
+</head>
+<body>
+    {% if error %}
+        <div class="center">
+            <p class="error">{{ error }}</p>
+            <p class="countdown">This page will redirect to login <span id="countdown">5</span>s</p>
+        </div>
+        <script>
+            let countdown = 5; // Set initial countdown value
+            let countdownElement = document.getElementById('countdown'); // Get countdown element
+
+            // Function to update countdown element and close error message after 5 seconds
+            function updateCountdown() {
+                countdown--;
+                countdownElement.textContent = countdown;
+
+                if (countdown === 0) {
+                    document.querySelector('.center').style.display = 'none';
+                } else {
+                    setTimeout(updateCountdown, 1000); // Update countdown every 1 second
+                }
+            }
+
+            // Call updateCountdown function
+            updateCountdown();
+        </script>
+     {% endif %}
+
+    <form method="POST" action="">
+        <!-- CSRF token goes here -->
+        {% csrf_token %}
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email" placeholder="Email" required>
+        <br>
+        <label for="password">Password:</label>
+        <input type="password" name="password" id="password" placeholder="Password" required>
+        <input type="hidden" id="facialDataInput" name="facial_data">
+        <br>
+        <video id="video" width="720" height="560" autoplay muted></video>
+        <button id="captureButton">Capture Face</button>
+        <input type="hidden" id="facialDataInput" name="facial_data">
+
+        <!-- Include a counter to keep track of the number of captured images -->
+        <span id="captureCount">0</span>/5
+        <br>
+        <button type="submit">Login</button>
+    </form>
+    
+    <!-- Include Bootstrap 4 JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
+
