@@ -28,8 +28,9 @@ def recognition_liveness(model_path, le_path, detector_folder, encodings, confid
 
     # load the encoded faces and names
     print('[INFO] loading encodings...')
-    with open(args['encodings'], 'rb') as file:
-        encoded_data = pickle.loads(file.read())
+    # with open(args['encodings'], 'rb') as file:
+    #     encoded_data = pickle.loads(file.read())
+    encoded_data = encodings
     # load our serialized face detector from disk
     print('[INFO] loading face detector...')
     proto_path = os.path.sep.join([args['detector'], 'deploy.prototxt'])

@@ -8,6 +8,8 @@ import random
 import pymongo
 import bcrypt
 import sys
+import time
+
 sys.path.append(r'D:\Gcode\UCL\Security\0416\Facial-Recognition-System\basic_face_auth')
 from face_recognition_liveness_app import recognition_liveness
 from encode_faces import encode_faces
@@ -34,7 +36,8 @@ def facial_auth(request):
 
     return render(request, 'facial_auth.html')
 
-
+# Create a dictionary to store the last request time for each IP address
+signup_request_times = {}
 def signup(request):
     if request.method == 'POST':
         client = pymongo.MongoClient('mongodb+srv://admin:admin@security.ju0aixd.mongodb.net/?retryWrites=true&w=majority')
@@ -46,14 +49,35 @@ def signup(request):
         vstep_status = 'default'
         vstep_info = 'default'
         facial_data = request.POST.get('facial_data')
-        # print(facial_data)
         if facial_data is None:
             return render(request, 'signup.html', {'error': 'Facial data is not provided'})
         else:
             encoded_facial_data = encode_faces(facial_data, username)
+            # encoded_facial_data['encodings'] = encoded_facial_data['encodings'].tolist()
         
         db = client.customers
         customers = db.customers
+
+        ''''rate limiting '''
+        '''
+        # Get the IP address of the client
+        ip_address = request.META.get('REMOTE_ADDR')
+        # Check if the IP address is already in the dictionary
+        if ip_address in signup_request_times:
+            # Get the last request time for the IP address
+            last_request_time = signup_request_times[ip_address]
+
+            # Calculate the time elapsed since the last request
+            current_time = time.time()
+            time_elapsed = current_time - last_request_time
+
+            # If the time elapsed is less than 60 seconds, return an error response
+            if time_elapsed < 60:
+                return render(request, 'signup.html', {'error': 'Too many requests. Please try again later.'})
+
+        # Update the last request time for the IP address
+        signup_request_times[ip_address] = time.time()
+        '''
         if customers.count_documents({'email': email}) != 0:
             return render(request, 'signup.html', {'error': 'Email is already taken'})
         if customers.count_documents({'username': username}) != 0:
@@ -76,14 +100,16 @@ def login(request):
         customers = db.customers
         email = request.POST.get('email')
         password = request.POST.get('password')
-        facial_data = request.POST.get('facial_data', None)
+        # facial_data = request.POST.get('facial_data', None)
         if customers.count_documents({'$and': [{'email': email}]}):
             data = list(customers.find({'$and': [{'email': email}]}))
+            # print(data)
             hashed_password = data[0]['password']
             username = data[0]['username']
+            facial_data = data[0]['facial_data']
             if bcrypt.checkpw(password.encode('utf-8'), hashed_password.encode('utf-8')):
                 name, label_name = recognition_liveness('liveness.model', 'label_encoder.pickle', 
-                                            'face_detector', 'encoded_faces.pickle', confidence=0.5)
+                                            'face_detector', facial_data, confidence=0.5)
                 print(name, label_name)
                 if name != username:
                     return render(request, 'login.html', {'error': 'Wrong person.'})

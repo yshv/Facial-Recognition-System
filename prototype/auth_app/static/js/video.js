@@ -12,6 +12,8 @@ let maxCount = 5;
 let photoUrls = [];
 let isCameraOn = false;
 
+
+
 function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
     .then(function(stream) {
@@ -39,6 +41,7 @@ function savePhotos(photoUrls) {
     console.log('5 photos collected')
     console.log(photoUrls);
 }
+
 
 console.log('Camera initialized')
 startBtn.addEventListener('click', function() {
@@ -77,8 +80,8 @@ snapBtn.addEventListener('click', function() {
                 username : username.value,
                 images: photoUrls,
             }; 
-            // imageInput.value = JSON.stringify(facialData);
-            imageInput.value = photoUrls;
+            imageInput.value = JSON.stringify(facialData);
+            // imageInput.value = photoUrls;
             console.log('5 photos collected')
             console.log(imageInput.value)
         }
