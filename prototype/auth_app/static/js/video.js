@@ -69,8 +69,8 @@ snapBtn.addEventListener('click', function() {
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             let photoUrl = canvas.toDataURL('image/jpeg');
             photoUrls.push(photoUrl);
-            console.log(photoUrl);
-            console.log(photoUrls);
+            // console.log(photoUrl);
+            // console.log(photoUrls);
             count++;
         }
         if (count === maxCount) {
@@ -88,8 +88,6 @@ snapBtn.addEventListener('click', function() {
     }
    
 });
-
-
 
 
 

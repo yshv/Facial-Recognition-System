@@ -205,15 +205,21 @@
              <input type="hidden" id="facialDataInput" name="facial_data" required>
              <button type="submit" class="btn btn-primary">Signup</button>
          </form>
- 
-         <div style="position: relative; margin-top: 20px;">
-             <video id="video" width="640" height="480" autoplay muted></video>
-             <canvas id="overlay" width="640" height="480" style="display:none;"></canvas>
-         </div>
          <canvas id="canvas" width="100%" height="auto"></canvas>
          <button id="startButton" class="btn btn-primary mt-2">Start Camera</button>
          <button id="captureButton" class="btn btn-primary mt-2">Capture Face</button>
          <span id="captureCount">0</span>/5
+
+         <div style="position: relative; margin-top: 20px;">
+             <video id="video" width="640" height="480" autoplay muted></video>
+             <canvas id="overlay" width="640" height="480" style="display:none;"></canvas>
+         </div>
+         <div class="text-center">
+             <a href="{% url 'login' %}">Already have an account? Login</a>
+         </div>
+         <div class="text-center">
+             <a href="{% url 'facial_auth' %}">Back to Home</a>
+         </div>
      </div>
      <script src="{% static 'js/video.js' %}"></script>
 

@@ -9,10 +9,9 @@ import pymongo
 import bcrypt
 import sys
 import time
-
-sys.path.append(r'D:\Gcode\UCL\Security\0416\Facial-Recognition-System\basic_face_auth')
-from face_recognition_liveness_app import recognition_liveness
-from encode_faces import encode_faces
+sys.path.append('..')
+from face_liveness_identification.face_recognition_liveness_app import recognition_liveness
+from face_liveness_identification.encode_faces import encode_faces
 # Create your views here.
 
 from django.http import JsonResponse
@@ -58,8 +57,7 @@ def signup(request):
         db = client.customers
         customers = db.customers
 
-        ''''rate limiting '''
-        '''
+        # rate limiting
         # Get the IP address of the client
         ip_address = request.META.get('REMOTE_ADDR')
         # Check if the IP address is already in the dictionary
@@ -77,7 +75,7 @@ def signup(request):
 
         # Update the last request time for the IP address
         signup_request_times[ip_address] = time.time()
-        '''
+        
         if customers.count_documents({'email': email}) != 0:
             return render(request, 'signup.html', {'error': 'Email is already taken'})
         if customers.count_documents({'username': username}) != 0:
