@@ -17,19 +17,14 @@ def recognition_liveness(model_path, le_path, detector_folder, encodings, confid
             'encodings':encodings, 'confidence':confidence}
     
     # check the current working directory : d:\Gcode\UCL\Security\Facial-Recognition-System\prototype\auth_app
-    print(os.getcwd())
-
-    # change the current working directory to the parent directory
-    # os.chdir('..')
-    # print(os.getcwd())
-
-    os.chdir('../basic_face_auth')
+    os.chdir('./face_liveness_identification/')
     print(os.getcwd())
 
     # load the encoded faces and names
     print('[INFO] loading encodings...')
-    with open(args['encodings'], 'rb') as file:
-        encoded_data = pickle.loads(file.read())
+    # with open(args['encodings'], 'rb') as file:
+    #     encoded_data = pickle.loads(file.read())
+    encoded_data = encodings
     # load our serialized face detector from disk
     print('[INFO] loading face detector...')
     proto_path = os.path.sep.join([args['detector'], 'deploy.prototxt'])
@@ -157,7 +152,7 @@ def recognition_liveness(model_path, le_path, detector_folder, encodings, confid
                 else:
                     sequence_count += 1
                 print(f'[INFO] {name}, {label_name}, seq: {sequence_count}')
-                
+
                 if label_name == 'fake':
                     cv2.putText(frame, "Don't try to Spoof !", (startX, endY + 25), 
                                 cv2.FONT_HERSHEY_COMPLEX, 0.7, (0,0,255), 2)
@@ -174,7 +169,7 @@ def recognition_liveness(model_path, le_path, detector_folder, encodings, confid
         # if 'q' is pressed, stop the loop
         # if that person appears 10 frames in a row, stop the loop
         # you can change this if your GPU run faster
-        if key == ord('q') or sequence_count==20:
+        if key == ord('q') or sequence_count==15:
             break
         
     # cleanup

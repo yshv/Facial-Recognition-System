@@ -12,6 +12,8 @@ let maxCount = 5;
 let photoUrls = [];
 let isCameraOn = false;
 
+
+
 function startCamera() {
     navigator.mediaDevices.getUserMedia({ video: true })
     .then(function(stream) {
@@ -40,6 +42,7 @@ function savePhotos(photoUrls) {
     console.log(photoUrls);
 }
 
+
 console.log('Camera initialized')
 startBtn.addEventListener('click', function() {
     console.log(isCameraOn)
@@ -66,8 +69,8 @@ snapBtn.addEventListener('click', function() {
             ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
             let photoUrl = canvas.toDataURL('image/jpeg');
             photoUrls.push(photoUrl);
-            console.log(photoUrl);
-            console.log(photoUrls);
+            // console.log(photoUrl);
+            // console.log(photoUrls);
             count++;
         }
         if (count === maxCount) {
@@ -77,16 +80,14 @@ snapBtn.addEventListener('click', function() {
                 username : username.value,
                 images: photoUrls,
             }; 
-            // imageInput.value = JSON.stringify(facialData);
-            imageInput.value = photoUrls;
+            imageInput.value = JSON.stringify(facialData);
+            // imageInput.value = photoUrls;
             console.log('5 photos collected')
             console.log(imageInput.value)
         }
     }
    
 });
-
-
 
 
 
