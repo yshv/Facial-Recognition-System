@@ -62,50 +62,7 @@ The systems consists of 5 main pages: Home page (facial_auth), Signup Page, Logi
 ![image](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/settings.jpeg)
 
 ## Structure of the project
-
-.
-├── README.md
-├── requirements.txt
-└── prototype
-    ├── manage.py
-    ├── auth_app
-    │   ├── admin.py
-    │   ├── apps.py
-    │   ├── models.py
-    │   ├── tests.py
-    │   ├── urls.py
-    │   ├── views.py
-    │   └── __init__.py
-    │   ├── migrations
-    │   ├── static
-    │   │   ├── css
-    │   │   │   └── main.css
-    │   │   └── js
-    │   │       └── video.js
-    │   └── templates
-    │       ├── editordel.html
-    │       ├── facial_auth.html
-    │       ├── login.html
-    │       ├── settings.html
-    │       ├── signup.html
-    │       ├── umain.html
-    │       ├── vstep.html
-    │       └── vstep_init.html
-    ├── live_face_detect
-    │   ├── encode_faces.py
-    │   ├── face_recognition_liveness_app.py
-    │   ├── label_encoder.pickle
-    │   ├── liveness.model
-    │   └── face_detector
-    │       ├── deploy.prototxt
-    │       └── res10_300x300_ssd_iter_140000.caffemodel
-    └── prototype
-        ├── asgi.py
-        ├── settings.py
-        ├── urls.py
-        ├── wsgi.py
-        └── __init__.py
-
+![image](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/tree_structure.jpg))
 
 
 
