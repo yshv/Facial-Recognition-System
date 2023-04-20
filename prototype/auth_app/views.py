@@ -10,8 +10,8 @@ import bcrypt
 import sys
 import time
 sys.path.append('..')
-from face_liveness_identification.face_recognition_liveness_app import recognition_liveness
-from face_liveness_identification.encode_faces import encode_faces
+from live_face_detect.face_recognition_liveness_app import recognition_liveness
+from live_face_detect.encode_faces import encode_faces
 # Create your views here.
 
 from django.http import JsonResponse
@@ -52,7 +52,6 @@ def signup(request):
             return render(request, 'signup.html', {'error': 'Facial data is not provided'})
         else:
             encoded_facial_data = encode_faces(facial_data, username)
-            # encoded_facial_data['encodings'] = encoded_facial_data['encodings'].tolist()
         
         db = client.customers
         customers = db.customers
