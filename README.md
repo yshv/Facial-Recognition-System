@@ -59,55 +59,53 @@ The systems consists of 5 main pages: Home page (facial_auth), Signup Page, Logi
    The 2-step verification allows you to enters a sencondary email and receives a verification code. 
    You can also disable this function after activation.
    3. Users can log out of their accounts and delete all saved private data with one click on the Delete Account.
-![image]([https://github.com/lexsaints/powershell/blob/master/IMG/ps2.png](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/settings.jpeg))
+![image](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/settings.jpeg)
 
 ## Structure of the project
 
-Facial-Recognition-System/
-│  README.md
-│  requirements.txt
-│  
-└─prototype
-    │  manage.py         
-    ├─auth_app
-    │  │  admin.py
-    │  │  apps.py
-    │  │  models.py
-    │  │  tests.py
-    │  │  urls.py
-    │  │  views.py
-    │  │  __init__.py 
-    │  ├─migrations         
-    │  ├─static
-    │  │  ├─css
-    │  │  │      main.css  
-    │  │  └─js
-    │  │         video.js        
-    │  └─templates
-    │         editordel.html
-    │         facial_auth.html
-    │         login.html
-    │         settings.html
-    │         signup.html
-    │         umain.html
-    │         vstep.html
-    │         vstep_init.html
-    │          
-    ├─live_face_detect
-    │  │  encode_faces.py
-    │  │  face_recognition_liveness_app.py
-    │  │  label_encoder.pickle
-    │  │  liveness.model
-    │  └─face_detector
-    │         deploy.prototxt
-    │         res10_300x300_ssd_iter_140000.caffemodel
-    │          
-    └─prototype
-          asgi.py
-          settings.py
-          urls.py
-          wsgi.py
-          __init__.py
+.
+├── README.md
+├── requirements.txt
+└── prototype
+    ├── manage.py
+    ├── auth_app
+    │   ├── admin.py
+    │   ├── apps.py
+    │   ├── models.py
+    │   ├── tests.py
+    │   ├── urls.py
+    │   ├── views.py
+    │   └── __init__.py
+    │   ├── migrations
+    │   ├── static
+    │   │   ├── css
+    │   │   │   └── main.css
+    │   │   └── js
+    │   │       └── video.js
+    │   └── templates
+    │       ├── editordel.html
+    │       ├── facial_auth.html
+    │       ├── login.html
+    │       ├── settings.html
+    │       ├── signup.html
+    │       ├── umain.html
+    │       ├── vstep.html
+    │       └── vstep_init.html
+    ├── live_face_detect
+    │   ├── encode_faces.py
+    │   ├── face_recognition_liveness_app.py
+    │   ├── label_encoder.pickle
+    │   ├── liveness.model
+    │   └── face_detector
+    │       ├── deploy.prototxt
+    │       └── res10_300x300_ssd_iter_140000.caffemodel
+    └── prototype
+        ├── asgi.py
+        ├── settings.py
+        ├── urls.py
+        ├── wsgi.py
+        └── __init__.py
+
 
 
 
