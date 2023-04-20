@@ -24,15 +24,20 @@ driver = webdriver.Firefox()
 # Navigate to the signup page
 driver.get("http://127.0.0.1:8000/signup/")
 
+# Generate random username, email, and password
+username = generate_username()
+email = generate_email()
+password = generate_password()
+
 # Fill out the form with random username, email, and password
 username_input = driver.find_element(By.ID, "username")
-username_input.send_keys(generate_username())
+username_input.send_keys(username)
 
 email_input = driver.find_element(By.ID, "email")
-email_input.send_keys(generate_email())
+email_input.send_keys(email)
 
 password_input = driver.find_element(By.ID, "password")
-password_input.send_keys(generate_password())
+password_input.send_keys(password)
 
 # Click on the Start Camera button
 start_button = driver.find_element(By.ID, "startButton")
@@ -49,6 +54,11 @@ for i in range(5):
 # Click on the Signup button
 signup_button = driver.find_element(By.XPATH, "//button[@type='submit']")
 signup_button.click()
+
+# Print the generated username, email, and password
+print(f"Username: {username}")
+print(f"Email: {email}")
+print(f"Password: {password}")
 
 # Close the browser
 driver.quit()
