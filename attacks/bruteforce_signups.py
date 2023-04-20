@@ -1,3 +1,4 @@
+
 import random
 import string
 from selenium import webdriver
@@ -18,47 +19,51 @@ def generate_password():
 def generate_email():
     return f"{generate_username()}@example.com"
 
-# Initialize browser driver
-driver = webdriver.Firefox()
+repeat = 5
 
-# Navigate to the signup page
-driver.get("http://127.0.0.1:8000/signup/")
+# Loop for repeat number of times
+for j in range(repeat):
+    # Initialize browser driver
+    driver = webdriver.Firefox()
 
-# Generate random username, email, and password
-username = generate_username()
-email = generate_email()
-password = generate_password()
+    # Navigate to the signup page
+    driver.get("http://127.0.0.1:8000/signup/")
 
-# Fill out the form with random username, email, and password
-username_input = driver.find_element(By.ID, "username")
-username_input.send_keys(username)
+    # Generate random username, email, and password
+    username = generate_username()
+    email = generate_email()
+    password = generate_password()
 
-email_input = driver.find_element(By.ID, "email")
-email_input.send_keys(email)
+    # Fill out the form with random username, email, and password
+    username_input = driver.find_element(By.ID, "username")
+    username_input.send_keys(username)
 
-password_input = driver.find_element(By.ID, "password")
-password_input.send_keys(password)
+    email_input = driver.find_element(By.ID, "email")
+    email_input.send_keys(email)
 
-# Click on the Start Camera button
-start_button = driver.find_element(By.ID, "startButton")
-start_button.click()
+    password_input = driver.find_element(By.ID, "password")
+    password_input.send_keys(password)
 
-# Wait for the camera to load
-wait = WebDriverWait(driver, 10)
-capture_button = wait.until(EC.presence_of_element_located((By.ID, "captureButton")))
+    # Click on the Start Camera button
+    start_button = driver.find_element(By.ID, "startButton")
+    start_button.click()
 
-# Click the Capture Face button five times
-for i in range(5):
-    capture_button.click()
+    # Wait for the camera to load
+    wait = WebDriverWait(driver, 10)
+    capture_button = wait.until(EC.presence_of_element_located((By.ID, "captureButton")))
 
-# Click on the Signup button
-signup_button = driver.find_element(By.XPATH, "//button[@type='submit']")
-signup_button.click()
+    # Click the Capture Face button five times
+    for i in range(5):
+        capture_button.click()
 
-# Print the generated username, email, and password
-print(f"Username: {username}")
-print(f"Email: {email}")
-print(f"Password: {password}")
+    # Click on the Signup button
+    signup_button = driver.find_element(By.XPATH, "//button[@type='submit']")
+    signup_button.click()
 
-# Close the browser
-driver.quit()
+    # Print the generated username, email, and password
+    print(f"Username: {username}")
+    print(f"Email: {email}")
+    print(f"Password: {password}")
+
+    # Close the browser
+    driver.quit()
