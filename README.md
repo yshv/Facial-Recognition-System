@@ -40,13 +40,14 @@ The systems consists of 5 main pages: Home page (facial_auth), Signup Page, Logi
    3. Users can submit their information using Signup Button. 
    If there is replicated username or email, or photos are not taken, web will give corresponding repsonse and redirect to Sighup page.
    4. Users can use URLs at the bottom of the webpage to go to Login page or Home page at any time.
-
+![image](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/signup.jpeg)
    
 3. if the user already has a account created, they can go to the Login page to access the main dashboard.
 
    1. At the Login page, the user enters his/her own email and password.
    2. If the email and password match, a video will pop up using webcam to do face liveness recognition. 
    Only if the face identification matches the username and the figure is detected as real, the user will be redirected to his Main page.
+![image](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/login.jpeg)
 
 4. After logging into the system, Main page allows users to go the Settings Page to manage their accounts.
 
@@ -58,6 +59,7 @@ The systems consists of 5 main pages: Home page (facial_auth), Signup Page, Logi
    The 2-step verification allows you to enters a sencondary email and receives a verification code. 
    You can also disable this function after activation.
    3. Users can log out of their accounts and delete all saved private data with one click on the Delete Account.
+![image]([https://github.com/lexsaints/powershell/blob/master/IMG/ps2.png](https://github.com/yihanchen3/Facial-Recognition-System/blob/yihan/pics/settings.jpeg))
 
 ## Structure of the project
 
