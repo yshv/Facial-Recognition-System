@@ -1,6 +1,6 @@
 # Facial-Recognition-System
 
-This project is a Facial Recognition System that allows user to register and login using their faces on a Django-based webpage. To adddress security and privacy issues, this project develops a liveness face recognition model using machine learning  to prevent from spoofing. An authentication web application that identify and authenticate individuals with their facial data is also established. The account data is protected by an encrypated database on the a MongoDB server and 2-step verification. The web application also provides the permission for users to manage their personal information at any time. This security system can be used for various applications, such as attendance systems.
+This project is a Facial Recognition System that allows user to register and login using their faces on a Django-based webpage. 
 
 ## Getting Started
 
