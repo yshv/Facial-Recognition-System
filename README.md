@@ -2,6 +2,10 @@
 
 In this project, a Django-based homepage uses a facial recognition system to authenticate users. To avoid spoofing, a liveness facial recognition model is created using machine learning. With 2-step verification and encrypted account data stored on a MongoDB server, an authentication web application is created. Users have control over their personal data. This approach can be applied to several applications, including attendance systems.
 
+## Presentation + Demo!
+
+https://youtu.be/OunUBHz83vg
+
 ## Getting Started
 
 ### Prerequisites
